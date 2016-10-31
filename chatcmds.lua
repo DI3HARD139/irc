@@ -11,7 +11,7 @@ minetest.register_chatcommand("irc_msg", {
 	privs = {shout=true},
 	func = function(name, param)
 		if not irc.connected then
-			minetest.chat_send_player(name, "Not connected to IRC. Use /irc_connect to connect.")
+			minetest.chat_send_player(name, "Server is not connect to IRC.")
 			return
 		end
 		local found, _, toname, message = param:find("^([^%s]+)%s(.+)")
@@ -46,7 +46,7 @@ minetest.register_chatcommand("irc_names", {
 	description = "List the users in IRC.",
 	func = function(name, params)
 		if not irc.connected then
-			minetest.chat_send_player(name, "Not connected to IRC. Use /irc_connect to connect.")
+			minetest.chat_send_player(name, "Server is not connected to IRC.")
 			return
 		end
 		local users = { }
@@ -63,7 +63,7 @@ minetest.register_chatcommand("irc_connect", {
 	privs = {irc_admin=true},
 	func = function(name, param)
 		if irc.connected then
-			minetest.chat_send_player(name, "You are already connected to IRC.")
+			minetest.chat_send_player(name, "Server is already connected to IRC.")
 			return
 		end
 		minetest.chat_send_player(name, "IRC: Connecting...")
@@ -78,7 +78,7 @@ minetest.register_chatcommand("irc_disconnect", {
 	privs = {irc_admin=true},
 	func = function(name, param)
 		if not irc.connected then
-			minetest.chat_send_player(name, "You are not connected to IRC.")
+			minetest.chat_send_player(name, "Server is not connected to IRC.")
 			return
 		end
 		if params == "" then
@@ -94,7 +94,7 @@ minetest.register_chatcommand("irc_reconnect", {
 	privs = {irc_admin=true},
 	func = function(name, param)
 		if not irc.connected then
-			minetest.chat_send_player(name, "You are not connected to IRC.")
+			minetest.chat_send_player(name, "Server is not connected to IRC.")
 			return
 		end
 		irc:disconnect("Reconnecting...")
@@ -109,7 +109,7 @@ minetest.register_chatcommand("irc_quote", {
 	privs = {irc_admin=true},
 	func = function(name, param)
 		if not irc.connected then
-			minetest.chat_send_player(name, "You are not connected to IRC.")
+			minetest.chat_send_player(name, "Server is not connected to IRC.")
 			return
 		end
 		irc:queue(param)

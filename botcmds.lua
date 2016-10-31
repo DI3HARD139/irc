@@ -33,7 +33,7 @@ function irc:bot_command(msg, text)
 		end
 		minetest.chat_send_player(player_to,
 				"PM from "..msg.user.nick.."@IRC: "..message, false)
-		irc:reply("Message sent!")
+		irc:reply("\0032Message sent!")
 		return
 	end
 	local pos = text:find(" ", 1, true)
@@ -47,8 +47,8 @@ function irc:bot_command(msg, text)
 	end
  
 	if not self.bot_commands[cmd] then
-		self:reply("Unknown command '"..cmd.."'. Try 'list'."
-			.." Or use @playername <message> to send a private message")
+		self:reply("\0032Unknown command '"..cmd.."'. Try 'list'."
+			.."\0032 Or use @playername <message> to send a private message")
 		return
 	end
  
@@ -74,15 +74,15 @@ irc:register_bot_command("help", {
 	description = "Get help about a command",
 	func = function(user, args)
 		if args == "" then
-			return false, "No command name specified. Use 'list' for a list of commands."
+			return false, "\0032No command name specified. Use 'list' for a list of commands."
 		end
 
 		local cmd = irc.bot_commands[args]
 		if not cmd then
-			return false, "Unknown command '"..cmdname.."'."
+			return false, "\0032Unknown command '"..cmdname.."'."
 		end
 
-		return true, ("Usage: %c%s %s -- %s"):format(
+		return true, ("\0032Usage: %c%s %s -- %s"):format(
 				irc.config.command_prefix,
 				args,
 				cmd.params or "<no parameters>",
@@ -95,12 +95,12 @@ irc:register_bot_command("list", {
 	params = "",
 	description = "List available commands.",
 	func = function(user, args)
-		local cmdlist = "Available commands: "
+		local cmdlist = "\0032Available commands: "
 		for name, cmd in pairs(irc.bot_commands) do
 			cmdlist = cmdlist..name..", "
 		end
-		return true, cmdlist.." -- Use 'help <command name>' to get"
-			.." help about a specific command."
+		return true, cmdlist.."\0032 -- Use 'help <command name>' to get"
+			.."\0032 help about a specific command."
 	end
 })
 
@@ -110,13 +110,13 @@ irc:register_bot_command("whereis", {
 	description = "Tell the location of <player>",
 	func = function(user, args)
 		if args == "" then
-			return false, "Player name required."
+			return false, "\0032Player name required."
 		end
 		local player = minetest.get_player_by_name(args)
 		if not player then
-			return false, "There is no player named '"..args.."'"
+			return false, "\0032There is no player named '"..args.."'"
 		end
-		local fmt = "Player %s is at (%.2f,%.2f,%.2f)"
+		local fmt = "\0032Player %s is at (%.2f,%.2f,%.2f)"
 		local pos = player:getpos()
 		return true, fmt:format(args, pos.x, pos.y, pos.z)
 	end
@@ -129,7 +129,7 @@ irc:register_bot_command("uptime", {
 	func = function(user, args)
 		local cur_time = os.time()
 		local diff = os.difftime(cur_time, starttime)
-		local fmt = "Server has been running for %d:%02d:%02d"
+		local fmt = "\0032Server has been running for %d:%02d:%02d"
 		return true, fmt:format(
 			math.floor(diff / 60 / 60),
 			math.floor(diff / 60) % 60,
@@ -147,7 +147,7 @@ irc:register_bot_command("players", {
 		for _, player in pairs(players) do
 			table.insert(names, player:get_player_name())
 		end
-		return true, "Connected players: "
+		return true, "\0032Connected players: "
 				..table.concat(names, ", ")
 	end
 })

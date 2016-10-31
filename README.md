@@ -14,7 +14,7 @@ Installing
 
 Quick one line install for Linux:
 
-	cd <Mods directory> && git clone --recursive https://github.com/minetest-mods/irc.git
+	cd <Mods directory> && git clone --recursive https://github.com/kaeza/minetest-irc.git irc
 
 Please change `<Mods directory>` to fit your installation of Minetest.
 For more information, see [the wiki](http://wiki.minetest.net/Installing_mods).
@@ -30,9 +30,7 @@ many distributions, for example:
 	# # On Arch Linux:
 	# pacman -S lua51-socket
 	# # On Debian/Ubuntu:
-	# # Debian/Ubuntu's LuaSocket packages are broken, so use LuaRocks.
-	# apt-get install luarocks
-	# luarocks install luasocket
+	# apt-get install lua-socket
 
 You will also need to add IRC to your trusted mods if you haven't disabled mod
 security.  Here's an example configuration line:
