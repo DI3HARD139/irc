@@ -8,7 +8,7 @@ function irc:sendLocal(message)
 end
 
 function irc:playerMessage(name, message)
-	return ("\0033<%s> %s"):format(name, message)
+	return ("\0032<%s> %s"):format(name, message)
 end
 
 -- \0000 White
